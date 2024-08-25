@@ -1,0 +1,69 @@
+@startuml
+
+interface ShoppingListProduct extends Product {}
+
+interface RecipeProduct extends Product{}
+
+abstract class AbstractProduct  implements Product{
+    - name: String
+    - amount: int
+}
+
+class ShoppingListProductImpl extends AbstractProduct implements ShoppingListProduct {
+    - shop: String
+    - note: String
+    - purchased: boolean
+}
+
+class RecipeProductImpl extends AbstractProduct implements RecipeProduct {
+        - measurementUnit: MeasurementUnit
+}
+
+enum MeasurementUnit {
+    GRAMS,
+    KILOGRAMS,
+    MILLILITERS,
+    LITERS
+    PIECES,
+    TABLESPOON,
+    TEASPOONFUL
+}
+
+class ShoppingList {
+    - products: Set<ShoppingListProduct>
+}
+
+class Recipe {
+    - name: String
+    - ingredients: List<RecipeProduct>
+    - steps: List<Step>
+    - foodGroup: Set<String>
+    - time: Time
+}
+
+class StepImpl implements Step {
+    - number: int
+    - description: String
+}
+
+class User {
+    - name: String
+    - lastName: String
+    - birthDay: Date
+    - shoppingList: ShoppingList
+    - recipes: Set<Recipe>
+}
+
+ShoppingList "1" ..> "n" ShoppingListProduct
+
+Recipe "1" --> "n" Step
+Recipe  "1" ..> "n" RecipeProduct
+
+User "1" --> "1" ShoppingList
+User "1" --> "n" Recipe
+
+RecipeProductImpl --> MeasurementUnit
+
+hide empty members
+
+@enduml
