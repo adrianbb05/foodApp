@@ -1,5 +1,5 @@
 @startuml
-
+package entity {
 interface ShoppingListProduct extends Product {}
 
 interface RecipeProduct extends Product{}
@@ -23,13 +23,14 @@ enum MeasurementUnit {
     GRAMS,
     KILOGRAMS,
     MILLILITERS,
-    LITERS
+    LITERS,
     PIECES,
     TABLESPOON,
     TEASPOONFUL
 }
 
 class ShoppingList {
+    - name: String
     - products: Set<ShoppingListProduct>
 }
 
@@ -53,6 +54,17 @@ class User {
     - shoppingList: ShoppingList
     - recipes: Set<Recipe>
 }
+}
+
+package service {
+interface ShoppingListService {
+    createShoppingList(ShoppingList) shoppingList: ShoppingList
+    deleteShoppingList(Long id): void
+    findShoppingListById(Long id): void
+    findShoppingListByName(String name): void
+}
+}
+
 
 ShoppingList "1" ..> "n" ShoppingListProduct
 
@@ -67,3 +79,4 @@ RecipeProductImpl --> MeasurementUnit
 hide empty members
 
 @enduml
+
