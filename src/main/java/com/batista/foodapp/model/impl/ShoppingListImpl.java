@@ -6,6 +6,8 @@ import com.batista.foodapp.model.ShoppingList;
 import com.batista.foodapp.model.ShoppingListProduct;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -16,10 +18,11 @@ import jakarta.persistence.Table;
 public class ShoppingListImpl implements ShoppingList {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @OneToMany
-    private Set<ShoppingListProductImpl> products;
+    private Set<ShoppingListProduct> products;
 
     @JsonIgnore
     @ManyToOne

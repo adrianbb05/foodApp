@@ -5,6 +5,8 @@ import com.batista.foodapp.model.MeasurementUnit;
 import com.batista.foodapp.model.RecipeProduct;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -14,6 +16,7 @@ import jakarta.persistence.Table;
 public class RecipeProductImpl extends AbstractProduct implements RecipeProduct {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private MeasurementUnit measurementUnit;
 

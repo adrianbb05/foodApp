@@ -25,4 +25,6 @@ public interface Recipe {
     Time getTime();
 
     void setTime(Time time);
+
+    Long getId();
 }

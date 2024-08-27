@@ -9,28 +9,36 @@ import com.batista.foodapp.model.RecipeProduct;
 import com.batista.foodapp.model.Step;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table (name = "Recipe")
+@NoArgsConstructor
 public class RecipeImpl implements Recipe  {
 
     @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @OneToMany
-    private List<RecipeProductImpl> ingredients;
-    @OneToMany
-    private List<StepImpl> steps;
-    private Set<String> categories;
     private Time time;
+    @OneToMany
+    private List<RecipeProduct> ingredients;
+    @OneToMany
+    private List<Step> steps;
+    @OneToMany
+    private Set<String> categories;
 
     @JsonIgnore
     @ManyToOne
     private UserImpl userImpl;
+
 
     @Override
     public String getName() {
@@ -81,4 +89,10 @@ public class RecipeImpl implements Recipe  {
     public void setTime(Time time) {
         this.time = time;
     }
+
+    @Override
+    public Long getId() {
+        return id;
+    }
+
 }
