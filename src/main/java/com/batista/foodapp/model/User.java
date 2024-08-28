@@ -3,6 +3,9 @@ package com.batista.foodapp.model;
 import java.sql.Date;
 import java.util.Set;
 
+import com.batista.foodapp.model.impl.RecipeImpl;
+import com.batista.foodapp.model.impl.ShoppingListImpl;
+
 public interface User {
 
     String getName();
@@ -19,9 +22,9 @@ public interface User {
 
     ShoppingList getShoppingList();
 
-    void setShoppingList(ShoppingList shoppingList);
+    void setShoppingList(ShoppingListImpl shoppingListImpl);
 
-    Set<Recipe> getRecipes();
+    Set<RecipeImpl> getRecipes();
 
-    void setRecipes(Set<Recipe> recipe);
+    void setRecipes(Set<RecipeImpl> recipe);
 }

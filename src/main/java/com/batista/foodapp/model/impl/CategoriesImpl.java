@@ -1,6 +1,6 @@
 package com.batista.foodapp.model.impl;
 
-import com.batista.foodapp.model.Step;
+import com.batista.foodapp.model.Categories;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,40 +12,27 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity
-@Table(name = "Steps")
+@Table(name = "Categories")
 @RequiredArgsConstructor
 @NoArgsConstructor
-public class StepImpl implements Step {
+public class CategoriesImpl implements Categories {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int number;
-    private String description;
+    private String name;
 
     @JsonIgnore
     @ManyToOne
     private RecipeImpl recipe;
 
     @Override
-    public int getNumber() {
-        return number;
+    public String getName() {
+        return name;
     }
 
     @Override
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public void setDescription(String description) {
-        this.description = description;
+    public void setName(String name) {
+        this.name = name;
     }
 }
-
-

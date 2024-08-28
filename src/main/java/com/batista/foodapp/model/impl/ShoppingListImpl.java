@@ -3,7 +3,6 @@ package com.batista.foodapp.model.impl;
 import java.util.Set;
 
 import com.batista.foodapp.model.ShoppingList;
-import com.batista.foodapp.model.ShoppingListProduct;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,9 +11,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "ShoppingList")
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class ShoppingListImpl implements ShoppingList {
 
     @Id
@@ -22,7 +25,7 @@ public class ShoppingListImpl implements ShoppingList {
     private Long id;
     private String name;
     @OneToMany
-    private Set<ShoppingListProduct> products;
+    private Set<ShoppingListProductImpl> products;
 
     @JsonIgnore
     @ManyToOne
@@ -39,12 +42,12 @@ public class ShoppingListImpl implements ShoppingList {
     }
 
     @Override
-    public Set<ShoppingListProduct> getProducts() {
+    public Set<ShoppingListProductImpl> getProducts() {
         return products;
     }
 
     @Override
-    public void setProducts(Set<ShoppingListProduct> products) {
+    public void setProducts(Set<ShoppingListProductImpl> products) {
         this.products = products;
     }
 }

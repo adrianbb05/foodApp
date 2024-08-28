@@ -4,23 +4,27 @@ import java.sql.Time;
 import java.util.List;
 import java.util.Set;
 
+import com.batista.foodapp.model.impl.CategoriesImpl;
+import com.batista.foodapp.model.impl.RecipeProductImpl;
+import com.batista.foodapp.model.impl.StepImpl;
+
 public interface Recipe {
 
     String getName();
 
     void setName(String name);
 
-    List<RecipeProduct> getIngredients();
+    List<RecipeProductImpl> getIngredients();
 
-    void setIngredients(List<RecipeProduct> ingredients);
+    void setIngredients(List<RecipeProductImpl> ingredients);
 
-    List<Step> getSteps();
+    List<StepImpl> getSteps();
 
-    void setSteps(List<Step> steps);
+    void setSteps(List<StepImpl> steps);
 
-    Set<String> getCategories();
+    Set<CategoriesImpl> getCategories();
 
-    void setCategories(Set<String> categories);
+    void setCategories(Set<CategoriesImpl> categories);
 
     Time getTime();
 

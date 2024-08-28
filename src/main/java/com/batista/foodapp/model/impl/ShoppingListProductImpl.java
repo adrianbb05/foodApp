@@ -9,9 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "ShoppingListProducts")
+@RequiredArgsConstructor
+@NoArgsConstructor
 public class ShoppingListProductImpl extends AbstractProduct implements ShoppingListProduct {
 
     @Id

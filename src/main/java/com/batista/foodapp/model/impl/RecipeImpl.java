@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.batista.foodapp.model.Recipe;
-import com.batista.foodapp.model.RecipeProduct;
-import com.batista.foodapp.model.Step;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table (name = "Recipe")
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class RecipeImpl implements Recipe  {
 
@@ -29,11 +28,11 @@ public class RecipeImpl implements Recipe  {
     private String name;
     private Time time;
     @OneToMany
-    private List<RecipeProduct> ingredients;
+    private List<RecipeProductImpl> ingredients;
     @OneToMany
-    private List<Step> steps;
+    private List<StepImpl> steps;
     @OneToMany
-    private Set<String> categories;
+    private Set<CategoriesImpl> categories;
 
     @JsonIgnore
     @ManyToOne
@@ -51,32 +50,32 @@ public class RecipeImpl implements Recipe  {
     }
 
     @Override
-    public List<RecipeProduct> getIngredients() {
+    public List<RecipeProductImpl> getIngredients() {
         return ingredients;
     }
 
     @Override
-    public void setIngredients(List<RecipeProduct> ingredients) {
+    public void setIngredients(List<RecipeProductImpl> ingredients) {
         this.ingredients = ingredients;
     }
 
     @Override
-    public List<Step> getSteps() {
+    public List<StepImpl> getSteps() {
         return steps;
     }
 
     @Override
-    public void setSteps(List<Step> steps) {
+    public void setSteps(List<StepImpl> steps) {
         this.steps = steps;
     }
 
     @Override
-    public Set<String> getCategories() {
+    public Set<CategoriesImpl> getCategories() {
         return categories;
     }
 
     @Override
-    public void setCategories(Set<String> categories) {
+    public void setCategories(Set<CategoriesImpl> categories) {
         this.categories = categories;
     }
 

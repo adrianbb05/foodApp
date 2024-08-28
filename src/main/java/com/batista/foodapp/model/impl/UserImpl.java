@@ -3,7 +3,6 @@ package com.batista.foodapp.model.impl;
 import java.sql.Date;
 import java.util.Set;
 
-import com.batista.foodapp.model.Recipe;
 import com.batista.foodapp.model.ShoppingList;
 import com.batista.foodapp.model.User;
 import jakarta.persistence.Entity;
@@ -11,29 +10,27 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Entity
 @Table(name = "Users")
 @RequiredArgsConstructor
+@NoArgsConstructor
 public class UserImpl implements User {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private final Long id;
+    private Long id;
     private String username;
     private String lastName;
     private Date birthDay;
+    @OneToOne
+    private ShoppingListImpl shoppingListImpl;
     @OneToMany
-    private ShoppingList shoppingList;
-    @OneToMany
-    private Set<Recipe> recipes;
-
-    public UserImpl(Long id) {
-
-        this.id = id;
-    }
+    private Set<RecipeImpl> recipesImpl;
 
     @Override
     public String getName() {
@@ -67,21 +64,21 @@ public class UserImpl implements User {
 
     @Override
     public ShoppingList getShoppingList() {
-        return shoppingList;
+        return shoppingListImpl;
     }
 
     @Override
-    public void setShoppingList(ShoppingList shoppingList) {
-        this.shoppingList = shoppingList;
+    public void setShoppingList(ShoppingListImpl shoppingListImpl) {
+        this.shoppingListImpl = shoppingListImpl;
     }
 
     @Override
-    public Set<Recipe> getRecipes() {
-        return recipes;
+    public Set<RecipeImpl> getRecipes() {
+        return recipesImpl;
     }
 
     @Override
-    public void setRecipes(Set<Recipe> recipe) {
-        this.recipes = recipe;
+    public void setRecipes(Set<RecipeImpl> recipeImpl) {
+        this.recipesImpl = recipeImpl;
     }
 }
