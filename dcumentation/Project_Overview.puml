@@ -1,69 +1,129 @@
 @startuml
-package entity {
-interface ShoppingListProduct extends Product {}
 
-interface RecipeProduct extends Product{}
-
-abstract class AbstractProduct  implements Product{
-    - name: String
-    - amount: int
+class RecipeProductImpl extends AbstractProduct implements RecipeProduct{
+- Long id
+- MeasurementUnit measurementUnit
+- RecipeImpl recipe
 }
 
-class ShoppingListProductImpl extends AbstractProduct implements ShoppingListProduct {
-    - shop: String
-    - note: String
-    - purchased: boolean
+
+class StepImpl implements Step{
+- Long id
+- int number
+- String description
+- RecipeImpl recipe
 }
 
-class RecipeProductImpl extends AbstractProduct implements RecipeProduct {
-        - measurementUnit: MeasurementUnit
+
+interface ShoppingListProduct {
+~ boolean isPurchased()
+}
+
+interface Step {
+}
+
+interface Product {
+}
+
+interface Categories {
 }
 
 enum MeasurementUnit {
-    GRAMS,
-    KILOGRAMS,
-    MILLILITERS,
-    LITERS,
-    PIECES,
-    TABLESPOON,
-    TEASPOONFUL
++  GRAMS
++  KILOGRAMS
++  MILLILITERS
++  LITERS
++  PIECES
++  TABLESPOON
++  TEASPOONFUL
 }
 
-class ShoppingList {
-    - name: String
-    - products: Set<ShoppingListProduct>
+interface Recipe {
 }
 
-class Recipe {
-    - name: String
-    - ingredients: List<RecipeProduct>
-    - steps: List<Step>
-    - foodGroup: Set<String>
-    - time: Time
+class UserImpl implements User  {
+- Long id
+- String username
+- String lastName
+- Date birthDay
+- ShoppingListImpl shoppingListImpl
+- Set<RecipeImpl> recipesImpl
 }
 
-class StepImpl implements Step {
-    - number: int
-    - description: String
+
+class ShoppingListProductImpl extends AbstractProduct implements ShoppingListProduct{
+- Long id
+- String shop
+- String note
+- boolean purchased
+- ShoppingListImpl shoppingList
 }
 
-class User {
-    - name: String
-    - lastName: String
-    - birthDay: Date
-    - shoppingList: ShoppingList
-    - recipes: Set<Recipe>
-}
+
+abstract class AbstractProduct implements Product{
+- String name
+- int amount
 }
 
-package service {
-interface ShoppingListService {
-    createShoppingList(ShoppingList) shoppingList: ShoppingList
-    deleteShoppingList(Long id): void
-    findShoppingListById(Long id): void
-    findShoppingListByName(String name): void
+
+class ShoppingListImpl implements ShoppingList {
+- Long id
+- String name
+- Set<ShoppingListProductImpl> products
+- UserImpl userImpl
 }
+
+
+interface User {
 }
+
+interface ShoppingList {
+}
+
+class RecipeImpl implements Recipe {
+- Long id
+- String name
+- Time time
+- List<RecipeProductImpl> ingredients
+- List<StepImpl> steps
+- Set<CategoriesImpl> categories
+- UserImpl userImpl
+}
+
+
+class CategoriesImpl implements Categories {
+- Long id
+- String name
+- RecipeImpl recipe
+}
+
+
+interface RecipeProduct extends Product {
+}
+
+interface BasicCRUD extends JpaRepository {
+    create
+    update
+    get
+    getAll
+    delete
+}
+
+interface CategoriesRespository extends BasicCRUD
+
+interface ReicpeProductRepository extends BasicCRUD {
+    duplicate
+}
+
+interface RecipeRepository extends BasicCRUD
+
+interface ShoppingListRepository extends BasicCRUD
+
+interface ShoppingListProductRepository extends BasicCRUD
+
+interface StepRepository extends BasicCRUD
+
+interface UserRepository extends BasicCRUD
 
 
 ShoppingList "1" ..> "n" ShoppingListProduct
@@ -71,12 +131,12 @@ ShoppingList "1" ..> "n" ShoppingListProduct
 Recipe "1" --> "n" Step
 Recipe  "1" ..> "n" RecipeProduct
 
+Recipe "1" --> "n" Categories
+
 User "1" --> "1" ShoppingList
 User "1" --> "n" Recipe
 
 RecipeProductImpl --> MeasurementUnit
 
 hide empty members
-
 @enduml
-
