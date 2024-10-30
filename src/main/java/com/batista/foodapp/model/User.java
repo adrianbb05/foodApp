@@ -3,28 +3,30 @@ package com.batista.foodapp.model;
 import java.sql.Date;
 import java.util.Set;
 
-import com.batista.foodapp.model.impl.RecipeImpl;
-import com.batista.foodapp.model.impl.ShoppingListImpl;
+import com.batista.foodapp.model.recipe.Recipe;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.Data;
 
-public interface User {
+@Data
+@Entity
+@Table(name = "Users")
+public class User {
 
-    String getName();
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String username;
+    private String lastName;
+    private Date birthDay;
+    @OneToOne
+    private ShoppingList shoppingListImpl;
+    @OneToMany
+    private Set<Recipe> recipesImpl;
 
-    void setName(String name);
-
-    String getLastName();
-
-    void setLastName(String lastName);
-
-    Date getBirthDate();
-
-    void setBirthDate(Date birthDate);
-
-    ShoppingList getShoppingList();
-
-    void setShoppingList(ShoppingListImpl shoppingListImpl);
-
-    Set<RecipeImpl> getRecipes();
-
-    void setRecipes(Set<RecipeImpl> recipe);
 }

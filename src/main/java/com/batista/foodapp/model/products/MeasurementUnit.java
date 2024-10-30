@@ -1,4 +1,4 @@
-package com.batista.foodapp.model;
+package com.batista.foodapp.model.products;
 
 public enum MeasurementUnit {
     GRAMS,
